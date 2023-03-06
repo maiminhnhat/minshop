@@ -1,69 +1,11 @@
-let books = [
-  {
-    id: 1,
-    name: "Luật tâm thức",
-    price: 220000,
-    provider: "Fahasha",
-    imageNumber: "01",
-  },
-  {
-    id: 2,
-    name: "Chiến binh cầu vồng",
-    price: 140000,
-    provider: "Fahasha",
-    imageNumber: "02",
-  },
-  {
-    id: 3,
-    name: "Nghệ thuật tập trung",
-    price: 90000,
-    provider: "Tuổi trẻ",
-    imageNumber: "03",
-  },
-  {
-    id: 4,
-    name: "Bye Béo",
-    price: 305000,
-    provider: "Kmin Books",
-    imageNumber: "04",
-  },
-  {
-    id: 5,
-    name: "Sát thủ bán hàng",
-    price: 180000,
-    provider: "Fahasha",
-    imageNumber: "05",
-  },
-  {
-    id: 6,
-    name: "Hoàng tử bé",
-    price: 50000,
-    provider: "Kmin Books",
-    imageNumber: "06",
-  },
-  {
-    id: 7,
-    name: "Tâm lý học tội phạm",
-    price: 400000,
-    provider: "Kmin Books",
-    imageNumber: "07",
-  },
-  {
-    id: 8,
-    name: "Hiểu về trái tim",
-    price: 130000,
-    provider: "Tuổi trẻ",
-    imageNumber: "08",
-  },
-];
-
+let books;
 function displayData(books) {
-  console.log(books);
   let list = document.getElementById("list");
 
   for (const element of books) {
     let item = document.createElement("div");
     item.className = "item";
+
     item.innerHTML += `<img src="./images/${element.imageNumber}.jpg" alt="">`;
     item.innerHTML += `<h2>${element.name}</h2>`;
     item.innerHTML += `<p>${element.price}</p>`;
@@ -101,8 +43,10 @@ function sort() {
   }
 
   sortedBooks = books.filter((book) => {
-    return minPrice <= book.price && book.price >= maxPrice;
+    return minPrice >= book.price || book.price <= maxPrice;
   });
+
+  if(sortedBooks.length == 0) sortedBooks = books
 
   if (checkedPublisher.length > 0) {
     const results = sortedBooks.filter((result) => {
@@ -116,4 +60,13 @@ function sort() {
   displayData(sortedBooks);
 }
 
-displayData(books);
+function getBooks() {
+   fetch("http://localhost:3000/books")
+    .then((response) => response.json())
+    .then((data) => {
+      books = data
+      displayData(data);
+    });
+}
+
+getBooks();

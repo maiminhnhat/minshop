@@ -35,7 +35,6 @@ input[type=number] {
 }
 
 header {
-    background-image: linear-gradient(to right, #fcbf16, #992154);
     padding: 30px 0;
     color: white;
     position: relative;
@@ -73,17 +72,18 @@ header #colors {
     background-image: linear-gradient(to right, #fcbf16, #992154);
 }
 
-
-
-
-
-main {
+.main {
     display: flex;
     width: 80%;
     margin: 50px auto;
     max-width: 1200px;
 }
-aside {
+
+.carousel {
+    padding-top: 30px;
+}
+
+.sort {
     width: 25%;
     padding: 20px 20px;
     /* border-right: solid 1px gray; */
@@ -92,39 +92,42 @@ aside {
     border-radius: 20px;
 }
 
-aside input#search {
+.sort input#search {
     width: 100%;
 }
 
-aside div#price-filter{
+.sort div#price-filter{
     overflow: hidden;
 }
-aside div#price-filter div {
+.sort div#price-filter div {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
     
 }
-aside input[type="number"] {
+.sort input[type="number"] {
     width: 45%;
 }
-aside input::placeholder {
+
+.sort input::placeholder {
     color: white;
 }
-aside button {
+
+.sort button {
     border: solid 2px #fcbf16;
     border-radius: 5px;
     float: right;
     
 }   
-aside button:hover {
+
+.sort button:hover {
     cursor: pointer;
     background-color: #fcbf16;
     color: white;
     transition: 0.2s;
 }
 
-main section {
+.main section {
     width: 75%;
     padding: 0 20px;
 }
@@ -168,17 +171,35 @@ section>#list {
     font-size: 1em;
 }
 
+.carousel-inner {
+    height: 0;
+    padding-bottom: 25%; /* this sets carousel aspect ratio (4:1 here) */
+  }
+  
+  .carousel-item {
+    position: absolute !important; /* Bootstrap is insistent */
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+  
+  .carousel-item img {
+    height: 100%; /* Bootstrap handles width already */
+    object-fit: cover; /* or 'contain' if you want stretch instead of crop */
+  }
+
 @media screen and (max-width: 992px){
-    main {
+    .main {
         width: 95%;
     }
 }
 
 @media screen and (max-width: 768px){
-    aside {
+    .sort {
         display: none;
     }
-    main section {
+    .main section {
         width: 100%;
     }
     #list>.item {
